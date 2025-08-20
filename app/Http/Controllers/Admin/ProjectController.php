@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\PostDec;
 
 class ProjectController extends Controller
 {
@@ -23,7 +24,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view("projects.create");
     }
 
     /**
@@ -31,7 +32,19 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $newProject = new Project();
+
+        $newProject->name = $data["name"];
+        $newProject->client = $data["client"];
+        $newProject->started_at = $data["started_at"];
+        $newProject->ended_at = $data["ended_at"];
+        $newProject->description = $data["description"];
+
+        $newProject->save();
+
+        return redirect()->route("projects.index", $newProject);
     }
 
     /**
@@ -45,24 +58,36 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        return view("projects.edit", compact("project"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $data = $request->all();
+
+        $project->name = $data["name"];
+        $project->client = $data["client"];
+        $project->started_at = $data["started_at"];
+        $project->ended_at = $data["ended_at"];
+        $project->description = $data["description"];
+
+        $project->update();
+
+        return redirect()->route("projects.show", $project);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect()->route("projects.index");
     }
 }
