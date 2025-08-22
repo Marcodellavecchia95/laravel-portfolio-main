@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\PostDec;
 
@@ -24,7 +25,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view("projects.create");
+        $types = Type::all();
+        return view("projects.create", compact("types"));
     }
 
     /**
@@ -37,6 +39,7 @@ class ProjectController extends Controller
         $newProject = new Project();
 
         $newProject->name = $data["name"];
+        $newProject->type_id = $data["type_id"];
         $newProject->client = $data["client"];
         $newProject->started_at = $data["started_at"];
         $newProject->ended_at = $data["ended_at"];
@@ -51,8 +54,10 @@ class ProjectController extends Controller
      * Display the specified resource.
      */
     public function show(Project $project)
+
     {
-        return view("projects.show", compact("project"));
+        $types = Type::all();
+        return view("projects.show", compact("project", "types"));
     }
 
     /**
@@ -60,7 +65,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view("projects.edit", compact("project"));
+        $types = Type::all();
+        return view("projects.edit", compact("project", "types"));
     }
 
     /**
@@ -71,10 +77,13 @@ class ProjectController extends Controller
         $data = $request->all();
 
         $project->name = $data["name"];
+        $project->type_id = $data["type_id"];
         $project->client = $data["client"];
         $project->started_at = $data["started_at"];
         $project->ended_at = $data["ended_at"];
         $project->description = $data["description"];
+
+
 
         $project->update();
 

@@ -4,19 +4,17 @@
 
 @section("content")
 
+
+
 <h2>{{$project->name}}</h2>
+<p>Tipo: {{$project->type->name}}</p>
 <p>{{$project->description}}</p>
 <div class="d-flex gap-3">
 <a href="{{route("projects.edit", $project)}}" class="btn btn-warning">Modifica progetto</a>
 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
  Elimina progetto
 </button>
-{{-- <form method="POST" action="{{route("projects.destroy", $project)}}">
-    @csrf
-    @method("DELETE")
 
-<input type="submit" value="Elimina progetto" class="btn btn-danger">
-</form> --}}
 </div>
 @endsection
 
