@@ -34,6 +34,19 @@
     <div class="mb-3">
     <label for="ended_at" class="form-label">Data di fine</label>
     <input type="date" class="form-control" id="ended_at" name="ended_at" >
+
+    
+      <div class=" mt-3 d-flex flex-wrap">
+        @foreach($technologies as $technology)
+
+        <div class="technology me-2">
+          <input type="checkbox" name="technologies[]" value="{{$technology->id}}" id="technology-{{$technology->id}}">
+          <label for="{{$technology->id}}">{{$technology->name}}</label>
+        </div>
+
+        @endforeach
+      </div>
+    
     
   </div>
     <div class="mb-3">

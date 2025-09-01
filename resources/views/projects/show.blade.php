@@ -9,7 +9,13 @@
 <h2>{{$project->name}}</h2>
 <p>Tipo: {{$project->type->name}}</p>
 <p>{{$project->description}}</p>
-<div class="d-flex gap-3">
+<p>
+  Tecnologie utilizzate:
+  @foreach ($project->technologies as $technology)
+  <span class="badge" style="background-color: {{$technology->color}}">{{$technology->name}}</span>
+  @endforeach 
+</p>
+<div class="d-flex gap-3 mt-5">
 <a href="{{route("projects.edit", $project)}}" class="btn btn-warning">Modifica progetto</a>
 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
  Elimina progetto
