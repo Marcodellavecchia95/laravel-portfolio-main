@@ -11,9 +11,10 @@
 <p>{{$project->description}}</p>
 <p>
   Tecnologie utilizzate:
-  @foreach ($project->technologies as $technology)
+  @forelse ($project->technologies as $technology)
   <span class="badge" style="background-color: {{$technology->color}}">{{$technology->name}}</span>
-  @endforeach 
+  @empty <span>Nessuna</span>
+  @endforelse
 </p>
 <div class="d-flex gap-3 mt-5">
 <a href="{{route("projects.edit", $project)}}" class="btn btn-warning">Modifica progetto</a>
